@@ -46,14 +46,6 @@ describe('/books routes', () => {
           publisher: 'Random House',
           author_id: 2,
         },
-        // {
-        //   title: 'American Gods',
-        //   genre: 'Fantasy',
-        //   publisher: 'Tor Fantasy',
-        //   author_id: 3,
-        //   createdAt: new Date(),
-        //   updatedAt: new Date(),
-        // },
       ]);
     } catch (e) {
       console.log(e);
