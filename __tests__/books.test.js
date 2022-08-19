@@ -67,6 +67,23 @@ describe('/books routes', () => {
       updatedAt: expect.any(String),
     });
   });
+  it.skip('#POST /authors adds an author to the table', async () => {
+    const newAuthor = {
+      first_name: 'Tessa',
+      last_name: 'Bailey',
+    };
+
+    const res = await request(app)
+      .post('/api/v1/books/authors')
+      .send(newAuthor);
+    expect(res.status).toBe(200);
+    expect(res.body).toEqual({
+      id: expect.any(Number),
+      ...newAuthor,
+      createdAt: expect.any(String),
+      updatedAt: expect.any(String),
+    });
+  });
   afterAll(async () => {
     await db.sequelize.close();
   });
