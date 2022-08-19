@@ -24,12 +24,12 @@ describe('/authors routes', () => {
       console.log(e);
     }
   });
-  it.skip('#GET /api/v1/authors should return a list of authors', async () => {
+  it('#GET /api/v1/authors should return a list of authors', async () => {
     const resp = await request(app).get('/api/v1/authors');
     expect(resp.status).toBe(200);
     expect(resp.body.length).toBe(3);
   });
-  it.skip('#GET /:id returns single author', async () => {
+  it('#GET /:id returns single author', async () => {
     const res = await request(app).get('/api/v1/authors/1');
     expect(res.status).toBe(200);
     expect(res.body).toEqual({
@@ -39,6 +39,25 @@ describe('/authors routes', () => {
       createdAt: expect.any(String),
       updatedAt: expect.any(String),
       Books: expect.any(Array),
+    });
+  });
+  it('#POST /:id/books adds new book associated with this author', async () => {
+    const newBook = {
+      title: 'The Light Brigade',
+      genre: 'Sci-Fi',
+      publisher: 'Tor',
+    };
+
+    const res = await request(app)
+      .post('/api/v1/authors/1/books')
+      .send(newBook);
+    expect(res.status).toBe(200);
+    expect(res.body).toEqual({
+      id: expect.any(Number),
+      ...newBook,
+      author_id: 1,
+      createdAt: expect.any(String),
+      updatedAt: expect.any(String),
     });
   });
   afterAll(async () => {

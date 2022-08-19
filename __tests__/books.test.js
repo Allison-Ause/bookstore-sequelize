@@ -67,7 +67,7 @@ describe('/books routes', () => {
       updatedAt: expect.any(String),
     });
   });
-  it.skip('#POST /authors adds an author to the table', async () => {
+  it('#POST /authors adds an author to the table', async () => {
     const newAuthor = {
       first_name: 'Tessa',
       last_name: 'Bailey',
