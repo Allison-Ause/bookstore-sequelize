@@ -38,6 +38,7 @@ describe('/authors routes', () => {
       last_name: 'Hurley',
       createdAt: expect.any(String),
       updatedAt: expect.any(String),
+      Books: expect.any(Array),
     });
   });
   afterAll(async () => {
