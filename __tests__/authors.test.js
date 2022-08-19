@@ -29,6 +29,17 @@ describe('/authors routes', () => {
     expect(resp.status).toBe(200);
     expect(resp.body.length).toBe(3);
   });
+  it('#GET /:id returns single author', async () => {
+    const res = await request(app).get('/api/v1/authors/1');
+    expect(res.status).toBe(200);
+    expect(res.body).toEqual({
+      id: 1,
+      first_name: 'Kameron',
+      last_name: 'Hurley',
+      createdAt: expect.any(String),
+      updatedAt: expect.any(String),
+    });
+  });
   afterAll(async () => {
     await db.sequelize.close();
   });
