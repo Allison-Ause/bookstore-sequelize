@@ -15,13 +15,17 @@ describe('/books routes', () => {
           first_name: 'Sylvia',
           last_name: 'Plath',
         },
-        {
-          first_name: 'Neil',
-          last_name: 'Gaiman',
-        },
       ]);
 
       await db.Books.bulkCreate([
+        {
+          title: 'Stars Are Legion',
+          genre: 'Sci-Fi',
+          publisher: 'Tor',
+          author_id: 1,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
         {
           title: 'Gods War',
           genre: 'Horror',
@@ -40,12 +44,6 @@ describe('/books routes', () => {
           publisher: 'Random House',
           author_id: 2,
         },
-        {
-          title: 'Poems: Vol 3',
-          genre: 'Poetry',
-          publisher: 'Random House',
-          author_id: 2,
-        },
       ]);
     } catch (e) {
       console.log(e);
@@ -55,6 +53,19 @@ describe('/books routes', () => {
     const resp = await request(app).get('/api/v1/books');
     expect(resp.status).toBe(200);
     expect(resp.body.length).toBe(4);
+  });
+  it('#GET /:id returns single book', async () => {
+    const res = await request(app).get('/api/v1/books/1');
+    expect(res.status).toBe(200);
+    expect(res.body).toEqual({
+      id: 1,
+      title: 'Stars Are Legion',
+      genre: 'Sci-Fi',
+      publisher: 'Tor',
+      author_id: 1,
+      createdAt: expect.any(String),
+      updatedAt: expect.any(String),
+    });
   });
   afterAll(async () => {
     await db.sequelize.close();
